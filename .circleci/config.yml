@@ -9,7 +9,7 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          key: dependency-cache-{{ checksum "package-lock.json" }}
 
       - restore_cache:
           key: node-v1-{{ checksum "package.json" }}-{{ arch }}
@@ -17,7 +17,7 @@ jobs:
       - run: yarn install
 
       - save_cache:
-          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ~/.cache/yarn
 
