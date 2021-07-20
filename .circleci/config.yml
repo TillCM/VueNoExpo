@@ -48,14 +48,12 @@ jobs:
     steps:
       - checkout
         
-      - attach_workspace:
-          at: ~/demo-react-native
+     
 
       - run:
           name: Assemble release build
           command: |
-            cd "/android" &&
-            ./gradlew bundleRelease
+            cd /android && ./gradlew bundleRelease
       - store_artifacts:
           path: app/build/outputs/bundle/release 
 
