@@ -50,6 +50,7 @@ jobs:
         
       - run:
           name: chmod permissions
+          working_directory: ~/Android
           command: chmod +x gradlew
 
       - run:
