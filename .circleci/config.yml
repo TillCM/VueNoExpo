@@ -61,6 +61,7 @@ jobs:
       - run:
           name: Assemble release build
           command: |
+            find .
             cd android && ./gradlew bundleRelease
       - store_artifacts:
           path: app/build/outputs/bundle/release 
