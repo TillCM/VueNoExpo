@@ -27,7 +27,7 @@ jobs:
       - image: circleci/android:api-29-node
     steps:
       - checkout:
-          path: ~/demo-react-native
+          path: ~/repo
 
       - attach_workspace:
           at: ~/demo-react-native
