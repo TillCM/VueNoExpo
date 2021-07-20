@@ -19,7 +19,7 @@ jobs:
           paths:
             - ./node_modules
      
-          command: npm run test
+       
   android-build-and-test:
     working_directory: ~/demo-react-native/android
     docker:
