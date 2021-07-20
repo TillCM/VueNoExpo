@@ -46,7 +46,22 @@ jobs:
     docker:
       - image: circleci/android:api-29-node
     steps:
-      - checkout
+      - checkout:
+            path: ~/demo-react-native
+
+      - attach_workspace:
+          at: ~/demo-react-native
+
+      - restore_cache:
+          key:  node-v1-{{ checksum "package.json" }}-{{ arch }}
+
+      - run: bundle install
+
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - vendor/bundle
+
         
       - run:
           name: chmod permissions
