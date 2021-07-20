@@ -50,8 +50,8 @@ jobs:
         
       - run:
           name: chmod permissions
-          working_directory: ~/Android
-          command: chmod +x gradlew
+          working_directory: ~/android
+          command: chmod +x ./gradlew
 
       - run:
           name: Assemble release build
