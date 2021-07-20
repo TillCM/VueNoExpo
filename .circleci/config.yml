@@ -55,12 +55,7 @@ jobs:
       - restore_cache:
           key:  node-v1-{{ checksum "package.json" }}-{{ arch }}
 
-      - run: bundle install
-
-      - save_cache:
-          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
-          paths:
-            - vendor/bundle
+    
 
         
       - run:
