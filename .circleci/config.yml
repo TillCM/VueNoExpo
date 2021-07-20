@@ -52,12 +52,6 @@ jobs:
       - attach_workspace:
           at: ~/demo-react-native
 
-      - restore_cache:
-          key:  node-v1-{{ checksum "package.json" }}-{{ arch }}
-
-    
-
-        
       - run:
           name: chmod permissions
           
