@@ -1,43 +1,43 @@
-version: 2
+version: 2.1
 jobs:
   build:
-    working_directory: ~/code
+    working_directory: ~/repo
     docker:
-      - image:  circleci/android:api-29
-    environment:
-      JVM_OPTS: -Xmx3200m
+      - image: circleci/node:10.16.3
     steps:
       - checkout
+      - run:
+          name: Update NPM
+          command: "sudo npm install -g npm@5"
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  
-            "app/build.gradle" }}
-
+          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
-              name: chmod permissions
-              command: chmod +x ./gradlew
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
+          name: Install Dependencies
+          command: npm install
       - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  
-                "app/build.gradle" }}
+            - ./node_modules
       - run:
-          name: chmod permissions
-          command: chmod +x ./gradlew
-      - run:
-          name: Run Tests
-          command: ./gradlew lint test
-      - store_artifacts:
-          path: app/build/reports
-          destination: reports
-      - store_test_results:
-          path: app/build/test-results  
+          name: Run tests
+          command: npm run test
+  android-build-and-test:
+    working_directory: ~/demo-react-native/android
+    docker:
+      - image: circleci/android:api-29-node
+    steps:
+      - checkout:
+          path: ~/demo-react-native
 
-      - run:
-          name: Assemble release build
-          command: |
-            ./gradlew bundleRelease
-      - store_artifacts:
-          path: app/build/outputs/bundle/release  
+      - attach_workspace:
+          at: ~/demo-react-native
+
+      - restore_cache:
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+
+      - run: bundle install
+
+      - save_cache:
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+          paths:
+            - vendor/bundle         
