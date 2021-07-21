@@ -37,7 +37,7 @@ jobs:
  
             
   android-build-and-test:
-    working_directory: ~/demo-react-native/android
+    working_directory: ~/demo-react-native
     docker:
       - image: circleci/android:api-29-node
     steps:
