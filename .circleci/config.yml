@@ -69,7 +69,7 @@ jobs:
             find .
       - store_artifacts:
         
-          path: app/build/outputs/bundle/release 
+          path: android/app/build/outputs/bundle/release
 
 workflows:
   node-android-ios:
