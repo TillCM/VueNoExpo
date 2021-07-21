@@ -1,0 +1,81 @@
+version: 2.1
+jobs:
+  node:
+    working_directory: ~/demo-react-native
+    docker:
+      - image: cimg/node:12.16
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+
+      - restore_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+
+      - run: npm install
+
+    
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - node_modules
+
+  
+      - persist_to_workspace:
+          root: ~/demo-react-native
+          paths:
+            - node_modules
+
+      - store_test_results:
+          path: test-results
+
+      - store_artifacts:
+          path: test-results
+
+ 
+            
+  android-build-and-test:
+    working_directory: ~/demo-react-native
+    docker:
+      - image: circleci/android:api-29-node
+    steps:
+      - checkout:
+          path: ~/demo-react-native
+          
+      - attach_workspace:
+          at: ~/demo-react-native
+
+      - restore_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}   
+
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - node_modules      
+
+      - run:
+          name: chmod permissions
+          
+          command: |
+           cd android &&  chmod +x ./gradlew
+
+      - run:
+          name: Assemble release build
+          command: |
+            find .
+            cd android && ./gradlew bundleRelease
+            find .
+      - store_artifacts:
+        
+          path: android/app/build/outputs/bundle/release
+
+workflows:
+  node-android-ios:
+    jobs:
+      - node
+      - android-build-and-test:
+          requires:
+            - node
+     
