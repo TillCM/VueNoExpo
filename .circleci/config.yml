@@ -100,4 +100,6 @@ workflows:
       - android-build-and-test:
           requires:
             - node
+      - sonarqube
+
      
