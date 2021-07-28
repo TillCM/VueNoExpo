@@ -93,7 +93,7 @@ jobs:
            -Dsonar.host.url=https://sonarcloud.io \
            -Dsonar.login="$SONAR_TOKEN" \
            -Dsonar.branch.name="$SONAR_BRANCH" \
-           -Dsonar.sourceEncoding=UTF-8 \ 
+           -Dsonar.sources="."
          
 workflows:
   node-android-ios:
