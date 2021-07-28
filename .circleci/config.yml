@@ -94,7 +94,6 @@ jobs:
            -Dsonar.exclusions="**/*.java/**,**/*.xml/**" \
            -Dsonar.login="$SONAR_TOKEN" \
            -Dsonar.branch.name="$SONAR_BRANCH" \
-           -Dsonar.java.binaries=build/classes \
            -Dsonar.sources="."
          
 workflows:
