@@ -93,6 +93,7 @@ jobs:
            -Dsonar.host.url=https://sonarcloud.io \
            -Dsonar.login="$SONAR_TOKEN" \
            -Dsonar.branch.name="$SONAR_BRANCH" \
+           -Dsonar.java.binaries=.build\libs \
            -Dsonar.sources="."
          
 workflows:
