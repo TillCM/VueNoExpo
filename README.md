@@ -20,7 +20,7 @@ ANDROID_SDK_ROOT (Pointing to where your Android SDK is installed )
 
 ```Path to tools %LOCALAPPDATA%\Android\Sdk\platform-tools```
 
-## Linux Environment Setup
+## Linux Environment Setup:
 
 1. Download 
 
