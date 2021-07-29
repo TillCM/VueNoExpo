@@ -22,6 +22,8 @@ ANDROID_SDK_ROOT (Pointing to where your Android SDK is installed )
 
 ## Linux Environment Setup
 
+1. Download 
+
 ## Start the GenyMotion Emulator and run your app with :
 
 ```react-native run-android```
