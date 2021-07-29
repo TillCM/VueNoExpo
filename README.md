@@ -1,4 +1,4 @@
-# VueNative app without Expo
+# VueNative app without Expo :
 
 ### Setup Environment
 1. Follow instructions from here to install Android Studio and setup the environment: [Set up Android Environment](https://reactnative.dev/docs/environment-setup)
