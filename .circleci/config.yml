@@ -84,14 +84,7 @@ jobs:
             cd android && ./gradlew assembleRelease
             find . 
       
-      - run:
-          name: MobSF
-          command: |
-           cd android
-           pip install mobsfscan
-           mobsfcan --sonarqube 
-
-
+    
   sonarqube:
     working_directory: ~/build
     docker:
@@ -119,7 +112,17 @@ jobs:
            -Dsonar.sources="."
 
 
-
+  mobsfscan:
+      docker:
+        - image: cimg/python:3.9.6
+      steps:
+        - checkout
+        - run:
+            name: Install mobsfscan
+            command: pip install --upgrade mobsfscan
+        - run:
+            name: mobsfscan check
+            command: mobsfscan .
 
 
 workflows:
@@ -130,5 +133,6 @@ workflows:
           requires:
             - node
       - sonarqube
+      - mobsfscan
 
      
