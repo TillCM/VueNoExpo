@@ -77,6 +77,21 @@ jobs:
         
           path: android/app/build/outputs/bundle/release
 
+      - run:
+          name: Assemble release Apk 
+          command: |
+            find .
+            cd android && ./gradlew assembleRelease
+            find . 
+      
+      - run:
+          name: MobSF
+          command: |
+           cd android
+           pip install mobsfscan
+           mobsfcan --sonarqube 
+
+
   sonarqube:
     working_directory: ~/build
     docker:
@@ -102,7 +117,11 @@ jobs:
            -Dsonar.login="$SONAR_TOKEN" \
            -Dsonar.branch.name="$SONAR_BRANCH" \
            -Dsonar.sources="."
-         
+
+
+
+
+
 workflows:
   node-android-ios:
     jobs:
