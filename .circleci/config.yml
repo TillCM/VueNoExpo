@@ -63,7 +63,9 @@ jobs:
            
       - run:
           name: Run Lindt Test
-          command: ./gradlew lint test
+          command: |
+            find .
+             cd android && ./gradlew lint test
 
       - run:
           name: Assemble release build
