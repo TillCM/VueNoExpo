@@ -60,6 +60,12 @@ jobs:
           
           command: |
            cd android &&  chmod +x ./gradlew
+           
+      - run:
+          name: Run Lindt Test
+          command: |
+            find .
+             cd android && ./gradlew lint test
 
       - run:
           name: Assemble release build
@@ -71,6 +77,14 @@ jobs:
         
           path: android/app/build/outputs/bundle/release
 
+      - run:
+          name: Assemble release Apk 
+          command: |
+            find .
+            cd android && ./gradlew assembleRelease
+            find . 
+      
+    
   sonarqube:
     working_directory: ~/build
     docker:
@@ -96,7 +110,23 @@ jobs:
            -Dsonar.login="$SONAR_TOKEN" \
            -Dsonar.branch.name="$SONAR_BRANCH" \
            -Dsonar.sources="."
-         
+
+
+
+  mobsfscan:
+      docker:
+        - image: cimg/python:3.9.6
+      steps:
+        - checkout
+        - run:
+            name: Install mobsfscan
+            command: pip install --upgrade mobsfscan
+        - run:
+            name: mobsfscan check
+            command: mobsfscan .
+
+
+
 workflows:
   node-android-ios:
     jobs:
@@ -105,5 +135,6 @@ workflows:
           requires:
             - node
       - sonarqube
+      - mobsfscan
 
      
