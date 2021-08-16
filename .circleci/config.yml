@@ -62,10 +62,18 @@ jobs:
            cd android &&  chmod +x ./gradlew
            
       - run:
-          name: Run Lindt Test
+          name: Run Lint Test
           command: |
             find .
              cd android && ./gradlew lint test
+
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_test_results:
+          path: app/build/test-results         
+
+      
 
       - run:
           name: Assemble release build
@@ -124,6 +132,11 @@ jobs:
         - run:
             name: mobsfscan check
             command: mobsfscan .
+        - store_artifacts:
+            path: app/build/reports
+            destination: reports
+        - store_test_results:
+           path: app/build/test-results  
 
 
 
