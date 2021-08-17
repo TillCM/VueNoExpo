@@ -129,10 +129,10 @@ jobs:
             command: pip install --upgrade mobsfscan
         - run:
             name: mobsfscan check
-            command: mobsfscan  --html  .
+            command: mobsfscan  -o mobsfreport .
         - run: find .  
         - store_artifacts:
-            path: app/build/reports
+            path: android/app/build/reports
             destination: reports
         - store_test_results:
            path: app/build/test-results  
