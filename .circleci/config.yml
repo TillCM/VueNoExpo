@@ -136,7 +136,7 @@ jobs:
                mobsfscan  -o mobsfreport .
         - run: find .  
         - store_artifacts:
-            path: android/app/build/reports
+            path: ./mobsfreport
             destination: reports
         - store_test_results:
            path: android/app/build/test-results  
