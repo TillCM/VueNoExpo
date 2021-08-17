@@ -133,7 +133,7 @@ jobs:
             name: mobsfscan check
             command: |
                mobsfscan .
-               mobsfscan  -o anrdoid/app/build/reports/mobsfreport .
+               mobsfscan  -o mobsfreport .
         - run: find .  
         - store_artifacts:
             path: android/app/build/reports
