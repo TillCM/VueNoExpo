@@ -120,6 +120,7 @@ jobs:
 
 
   mobsfscan:
+      working_directory: ~/demo-react-native
       docker:
         - image: cimg/python:3.9.6
       steps:
