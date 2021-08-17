@@ -133,13 +133,13 @@ jobs:
             name: mobsfscan check
             command: |
                mobsfscan .
-               mobsfscan  -o mobsfreport .
+               mobsfscan  -o anrdoid/app/build/reports/mobsfreport .
         - run: find .  
         - store_artifacts:
             path: android/app/build/reports
             destination: reports
         - store_test_results:
-           path: app/build/test-results  
+           path: android/app/build/test-results  
 
 
 
