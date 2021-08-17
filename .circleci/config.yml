@@ -62,10 +62,16 @@ jobs:
            cd android &&  chmod +x ./gradlew
            
       - run:
-          name: Run Lindt Test
+          name: Run Lint Test
           command: |
             find .
              cd android && ./gradlew lint test
+
+      - store_artifacts:
+          path: android/app/build/reports
+          destination: reports
+      - store_test_results:
+          path: android/app/build/test-results         
 
       - run:
           name: Assemble release build
@@ -114,16 +120,26 @@ jobs:
 
 
   mobsfscan:
+      working_directory: ~/demo-react-native
       docker:
         - image: cimg/python:3.9.6
       steps:
-        - checkout
+        - checkout:
+            path: ~/demo-react-native
         - run:
             name: Install mobsfscan
             command: pip install --upgrade mobsfscan
         - run:
             name: mobsfscan check
-            command: mobsfscan .
+            command: |
+               mobsfscan .
+               mobsfscan  -o mobsfreport .
+        - run: find .  
+        - store_artifacts:
+            path: ./mobsfreport
+            destination: reports
+        - store_test_results:
+           path: android/app/build/test-results  
 
 
 
