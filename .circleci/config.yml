@@ -129,7 +129,7 @@ jobs:
             command: pip install --upgrade mobsfscan
         - run:
             name: mobsfscan check
-            command: mobsfscan  -o mobsfreport .
+            command: mobsfscan  -o anrdoid/app/build/reports/mobsfreport .
         - run: find .  
         - store_artifacts:
             path: android/app/build/reports
