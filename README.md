@@ -1,4 +1,4 @@
-# VueNative app without Expo
+# VueNative app without Expo on Linux / Windows and  maybe Mac :
 
 ### Setup Environment
 1. Follow instructions from here to install Android Studio and setup the environment: [Set up Android Environment](https://reactnative.dev/docs/environment-setup)
@@ -20,7 +20,9 @@ ANDROID_SDK_ROOT (Pointing to where your Android SDK is installed )
 
 ```Path to tools %LOCALAPPDATA%\Android\Sdk\platform-tools```
 
+## Linux Environment Setup:
 
+1. Download 
 
 ## Start the GenyMotion Emulator and run your app with :
 

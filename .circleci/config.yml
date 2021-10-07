@@ -60,6 +60,18 @@ jobs:
           
           command: |
            cd android &&  chmod +x ./gradlew
+           
+      - run:
+          name: Run Lint Test
+          command: |
+            find .
+             cd android && ./gradlew lint test
+
+      - store_artifacts:
+          path: android/app/build/reports
+          destination: reports
+      - store_test_results:
+          path: android/app/build/test-results         
 
       - run:
           name: Assemble release build
@@ -71,6 +83,66 @@ jobs:
         
           path: android/app/build/outputs/bundle/release
 
+      - run:
+          name: Assemble release Apk 
+          command: |
+            find .
+            cd android && ./gradlew assembleRelease
+            find . 
+      
+    
+  sonarqube:
+    working_directory: ~/build
+    docker:
+      - image: sonarsource/sonar-scanner-cli
+    resource_class: small
+    steps:
+      - run: apk update
+      - run: apk upgrade
+      - run: apk --no-cache add --update openssh git curl
+      - checkout
+      - run: find .
+      - attach_workspace:
+          at: ~/workspace
+      - run: |
+          SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
+          echo "Sonar branch value is: " $SONAR_BRANCH
+          echo "Sonar org value is : "$SONAR_ORG
+          sonar-scanner \
+           -Dsonar.projectKey="$SONAR_PROJECT_KEY" \
+           -Dsonar.organization="$SONAR_ORG" \
+           -Dsonar.host.url=https://sonarcloud.io \
+           -Dsonar.exclusions="**/android/**,**/ios/**" \
+           -Dsonar.login="$SONAR_TOKEN" \
+           -Dsonar.branch.name="$SONAR_BRANCH" \
+           -Dsonar.sources="."
+
+
+
+  mobsfscan:
+      working_directory: ~/demo-react-native
+      docker:
+        - image: cimg/python:3.9.6
+      steps:
+        - checkout:
+            path: ~/demo-react-native
+        - run:
+            name: Install mobsfscan
+            command: pip install --upgrade mobsfscan
+        - run:
+            name: mobsfscan check
+            command: |
+               mobsfscan .
+               mobsfscan  -o mobsfreport .
+        - run: find .  
+        - store_artifacts:
+            path: ./mobsfreport
+            destination: reports
+        - store_test_results:
+           path: android/app/build/test-results  
+
+
+
 workflows:
   node-android-ios:
     jobs:
@@ -78,4 +150,7 @@ workflows:
       - android-build-and-test:
           requires:
             - node
+      - sonarqube
+      - mobsfscan
+
      
