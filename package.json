@@ -12,9 +12,16 @@
   "dependencies": {
     "@testing-library/react-native": "^7.2.0",
     "react": "16.13.1",
-    "react-native": "0.63.4",
+    "react-native": "^0.63.4",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-paper": "^4.9.2",
+    "react-native-reanimated": "^2.2.2",
+    "react-native-screens": "^3.8.0",
+    "react-navigation-material-bottom-tabs": "^2.3.4",
+    "react-navigation-stack": "^2.10.4",
     "vue-native-core": "^0.3.1",
-    "vue-native-helper": "^0.3.1"
+    "vue-native-helper": "^0.3.1",
+    "vue-native-router": "^0.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
